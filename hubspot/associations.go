@@ -35,11 +35,14 @@ type AssociationListResult struct {
 }
 
 type HubspotAssociationCategory string
+type HubspotAssociationTypeId int
 
 const (
 	HubSpotDefined    HubspotAssociationCategory = "HUBSPOT_DEFINED"
 	UserDefined       HubspotAssociationCategory = "USER_DEFINED"
 	IntegratorDefined HubspotAssociationCategory = "INTEGRATOR_DEFINED"
+
+	LineItemToDealTypeId HubspotAssociationTypeId = 20
 )
 
 type AssociationType struct {
@@ -50,7 +53,7 @@ type AssociationType struct {
 
 type AssociationCreateOptions struct {
 	Category HubspotAssociationCategory `json:"associationCategory"`
-	TypeId   int64                      `json:"associationTypeId"`
+	TypeId   HubspotAssociationTypeId   `json:"associationTypeId"`
 }
 
 type AssociationCreateOutput struct {
@@ -79,6 +82,15 @@ type AssociationCreateDefinitionOptions struct {
 type AssociationUpdateDefinitionOptions struct {
 	Label  string `json:"label"`
 	TypeId int64  `json:"associationTypeId"`
+}
+
+type Association struct {
+	Types []AssociationCreateOptions `json:"types"`
+	To    AssociationTo              `json:"to"`
+}
+
+type AssociationTo struct {
+	Id string `json:"id"`
 }
 
 func (a *associations) List(ctx context.Context, fromObjectType string, fromObjectId int64, toObjectType string, query *AssociationListQuery) (*AssociationList, error) {

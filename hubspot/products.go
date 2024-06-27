@@ -108,16 +108,15 @@ func (z *products) ListAssociations(ctx context.Context, query *ProductAssociati
 	u := fmt.Sprintf("/crm/v3/objects/products/%s/associations/%s", productId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	pa := &ProductAssociations{}
 
 	err = z.client.do(req, pa)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return pa, nil
 }
 
@@ -125,16 +124,15 @@ func (z *products) Associate(ctx context.Context, productId string, toObjectType
 	u := fmt.Sprintf("/crm/v3/objects/products/%s/associations/%s/%s/%s", productId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	product := &Product{}
 
 	err = z.client.do(req, product)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Associate(): do(): %v", err)
+		return nil, err
 	}
-
 	return product, nil
 }
 
@@ -142,9 +140,8 @@ func (z *products) Disassociate(ctx context.Context, productId string, toObjectT
 	u := fmt.Sprintf("/crm/v3/objects/products/%s/associations/%s/%s/%s", productId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.products.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -152,16 +149,15 @@ func (z *products) List(ctx context.Context, query *ProductListQuery) (*ProductL
 	u := "crm/v3/objects/products"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	pl := &ProductList{}
 
 	err = z.client.do(req, pl)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return pl, nil
 }
 
@@ -169,16 +165,15 @@ func (z *products) Create(ctx context.Context, options *ProductCreateOrUpdateOpt
 	u := "/crm/v3/objects/products"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Create(): newHttpRequest(ctx, ): %+v", err)
+		return nil, err
 	}
 
 	product := &Product{}
 
 	err = z.client.do(req, product)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Create(): do(): %+v", err)
+		return nil, err
 	}
-
 	return product, nil
 }
 
@@ -186,16 +181,15 @@ func (z *products) Read(ctx context.Context, query *ProductReadQuery, productId 
 	u := fmt.Sprintf("crm/v3/objects/products/%s", productId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	product := &Product{}
 
 	err = z.client.do(req, product)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Read(): do(): %+v", err)
+		return nil, err
 	}
-
 	return product, nil
 }
 
@@ -203,16 +197,15 @@ func (z *products) Update(ctx context.Context, productId string, options *Produc
 	u := fmt.Sprintf("crm/v3/objects/products/%s", productId)
 	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	product := &Product{}
 
 	err = z.client.do(req, product)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Update(): do(): %+v", err)
+		return nil, err
 	}
-
 	return product, nil
 }
 
@@ -220,9 +213,8 @@ func (z *products) Archive(ctx context.Context, productId string) error {
 	u := fmt.Sprintf("crm/v3/objects/products/%s", productId)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.products.Archive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -238,9 +230,8 @@ func (z *products) BatchArchive(ctx context.Context, productIds []string) error 
 
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.products.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -248,16 +239,15 @@ func (z *products) BatchCreate(ctx context.Context, options *ProductBatchCreateO
 	u := "/crm/v3/objects/products/batch/create"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	products := &ProductBatchOutput{}
 
 	err = z.client.do(req, products)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchCreate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return products, nil
 }
 
@@ -265,16 +255,15 @@ func (z *products) BatchRead(ctx context.Context, options *ProductBatchReadOptio
 	u := "/crm/v3/objects/products/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	products := &ProductBatchOutput{}
 
 	err = z.client.do(req, products)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return products, nil
 }
 
@@ -282,16 +271,15 @@ func (z *products) BatchUpdate(ctx context.Context, options *ProductBatchUpdateO
 	u := "/crm/v3/objects/products/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	products := &ProductBatchOutput{}
 
 	err = z.client.do(req, products)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return products, nil
 }
 
@@ -299,16 +287,15 @@ func (z *products) Search(ctx context.Context, options *ProductSearchOptions) (*
 	u := "/crm/v3/objects/products/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	products := &ProductSearchResults{}
 
 	err = z.client.do(req, products)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Search(): do(): %+v", err)
+		return nil, err
 	}
-
 	return products, nil
 }
 
@@ -316,15 +303,14 @@ func (z *products) Merge(ctx context.Context, options *ProductMergeOptions) (*Pr
 	u := "/crm/v3/objects/products/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	product := &Product{}
 
 	err = z.client.do(req, product)
 	if err != nil {
-		return nil, fmt.Errorf("client.products.Merge(): do(): %+v", err)
+		return nil, err
 	}
-
 	return product, nil
 }

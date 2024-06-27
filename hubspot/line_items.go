@@ -58,7 +58,8 @@ type LineItem struct {
 }
 
 type LineItemCreateOrUpdateOptions struct {
-	Properties LineItemProperties `json:"properties"`
+	Associations []Association      `json:"associations,omitempty"`
+	Properties   LineItemProperties `json:"properties"`
 }
 
 type LineItemReadQuery struct {
