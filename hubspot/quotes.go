@@ -86,14 +86,14 @@ func (z *quotes) ListAssociations(ctx context.Context, quoteId string, toObjectT
 	u := fmt.Sprintf("/crm/v3/objects/quotes/%s/associations/%s", quoteId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	qal := &QuoteAssociationsList{}
 
 	err = z.client.do(req, qal)
 	if err != nil {
-		return nil, fmt.Errorf("client.Companies.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
 
 	return qal, nil
@@ -103,14 +103,14 @@ func (z *quotes) List(ctx context.Context, query *QuoteListQuery) (*QuoteList, e
 	u := "/crm/v3/objects/quotes"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ql := &QuoteList{}
 
 	err = z.client.do(req, ql)
 	if err != nil {
-		return nil, fmt.Errorf("client.Companies.List(): do(): %v", err)
+		return nil, err
 	}
 
 	return ql, nil
@@ -120,14 +120,14 @@ func (z *quotes) Read(ctx context.Context, quoteId string, query *QuoteReadQuery
 	u := fmt.Sprintf("/crm/v3/objects/quotes/%s", quoteId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	q := &Quote{}
 
 	err = z.client.do(req, q)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.Read(): do(): %v", err)
+		return nil, err
 	}
 
 	return q, nil
@@ -137,14 +137,14 @@ func (z *quotes) BatchRead(ctx context.Context, options *QuoteBatchReadOptions) 
 	u := "/crm/v3/objects/quotes/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.BatchRead(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	qbrr := &QuoteBatchReadResults{}
 
 	err = z.client.do(req, qbrr)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.BatchRead(): do(): %v", err)
+		return nil, err
 	}
 
 	return qbrr, nil
@@ -154,14 +154,14 @@ func (z *quotes) Search(ctx context.Context, options *QuoteSearchOptions) (*Quot
 	u := "/crm/v3/objects/quotes/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	qsr := &QuoteSearchResults{}
 
 	err = z.client.do(req, qsr)
 	if err != nil {
-		return nil, fmt.Errorf("client.quotes.Search(): do(): %v", err)
+		return nil, err
 	}
 
 	return qsr, nil

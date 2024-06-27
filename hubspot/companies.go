@@ -121,7 +121,6 @@ func (z *companies) ListAssociations(ctx context.Context, query *CompanyAssociat
 	if err != nil {
 		return nil, err
 	}
-
 	return ca, nil
 }
 
@@ -138,7 +137,6 @@ func (z *companies) Associate(ctx context.Context, companyId string, toObjectTyp
 	if err != nil {
 		return nil, err
 	}
-
 	return company, nil
 }
 
@@ -148,7 +146,6 @@ func (z *companies) Disassociate(ctx context.Context, companyId string, toObject
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -165,7 +162,6 @@ func (z *companies) List(ctx context.Context, query *CompanyListQuery) (*Company
 	if err != nil {
 		return nil, err
 	}
-
 	return cl, nil
 }
 
@@ -182,7 +178,6 @@ func (z *companies) Create(ctx context.Context, options *CompanyCreateOrUpdateOp
 	if err != nil {
 		return nil, err
 	}
-
 	return company, nil
 }
 
@@ -199,7 +194,6 @@ func (z *companies) Read(ctx context.Context, query *CompanyReadQuery, companyId
 	if err != nil {
 		return nil, err
 	}
-
 	return company, nil
 }
 
@@ -216,7 +210,6 @@ func (z *companies) Update(ctx context.Context, options *CompanyCreateOrUpdateOp
 	if err != nil {
 		return nil, err
 	}
-
 	return company, nil
 }
 
@@ -226,7 +219,6 @@ func (z *companies) Archive(ctx context.Context, companyId string) error {
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -244,7 +236,6 @@ func (z *companies) BatchArchive(ctx context.Context, companyIds []string) error
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -261,7 +252,6 @@ func (z *companies) BatchCreate(ctx context.Context, options *CompanyBatchCreate
 	if err != nil {
 		return nil, err
 	}
-
 	return companies, nil
 }
 
@@ -278,7 +268,6 @@ func (z *companies) BatchRead(ctx context.Context, options *CompanyBatchReadOpti
 	if err != nil {
 		return nil, err
 	}
-
 	return companies, nil
 }
 
@@ -295,7 +284,6 @@ func (z *companies) BatchUpdate(ctx context.Context, options *CompanyBatchUpdate
 	if err != nil {
 		return nil, err
 	}
-
 	return companies, nil
 }
 
@@ -312,7 +300,6 @@ func (z *companies) Search(ctx context.Context, options *CompanySearchOptions) (
 	if err != nil {
 		return nil, err
 	}
-
 	return companies, nil
 }
 
@@ -329,6 +316,5 @@ func (z *companies) Merge(ctx context.Context, options *CompanyMergeOptions) (*C
 	if err != nil {
 		return nil, err
 	}
-
 	return company, nil
 }

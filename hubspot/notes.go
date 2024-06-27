@@ -126,16 +126,15 @@ func (z *notes) ListAssociations(ctx context.Context, query *NoteAssociationsQue
 	u := fmt.Sprintf("/crm/v3/objects/notes/%s/associations/%s", noteId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ca := &NoteAssociations{}
 
 	err = z.client.do(req, ca)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return ca, nil
 }
 
@@ -143,16 +142,15 @@ func (z *notes) Associate(ctx context.Context, noteId string, toObjectType strin
 	u := fmt.Sprintf("/crm/v3/objects/notes/%s/associations/%s/%s/%s", noteId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	note := &Note{}
 
 	err = z.client.do(req, note)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Associate(): do(): %v", err)
+		return nil, err
 	}
-
 	return note, nil
 }
 
@@ -160,9 +158,8 @@ func (z *notes) Disassociate(ctx context.Context, noteId string, toObjectType st
 	u := fmt.Sprintf("/crm/v3/objects/notes/%s/associations/%s/%s/%s", noteId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.notes.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -170,16 +167,15 @@ func (z *notes) List(ctx context.Context, query *NoteListQuery) (*NoteList, erro
 	u := "/crm/v3/objects/notes"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	nl := &NoteList{}
 
 	err = z.client.do(req, nl)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return nl, nil
 }
 
@@ -187,16 +183,15 @@ func (z *notes) Create(ctx context.Context, options *NoteCreateOrUpdateOptions) 
 	u := "/crm/v3/objects/notes"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Create(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	note := &Note{}
 
 	err = z.client.do(req, note)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Create(): do(): %v", err)
+		return nil, err
 	}
-
 	return note, nil
 }
 
@@ -204,16 +199,15 @@ func (z *notes) Read(ctx context.Context, query *NoteReadQuery, noteId string) (
 	u := fmt.Sprintf("crm/v3/objects/lineitems/%s", noteId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	note := &Note{}
 
 	err = z.client.do(req, note)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Read(): do(): %+v", err)
+		return nil, err
 	}
-
 	return note, nil
 }
 
@@ -221,16 +215,15 @@ func (z *notes) Update(ctx context.Context, options *NoteCreateOrUpdateOptions, 
 	u := fmt.Sprintf("crm/v3/objects/notes/%s", noteId)
 	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	note := &Note{}
 
 	err = z.client.do(req, note)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Update(): do(): %+v", err)
+		return nil, err
 	}
-
 	return note, nil
 }
 
@@ -238,9 +231,8 @@ func (z *notes) Archive(ctx context.Context, noteId string) error {
 	u := fmt.Sprintf("crm/v3/objects/notes/%s", noteId)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.notes.Archive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -256,9 +248,8 @@ func (z *notes) BatchArchive(ctx context.Context, noteIds []string) error {
 
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.notes.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -266,16 +257,15 @@ func (z *notes) BatchCreate(ctx context.Context, options *NoteBatchCreateOptions
 	u := "/crm/v3/objects/notes/batch/create"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	notes := &NoteBatchOutput{}
 
 	err = z.client.do(req, notes)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchCreate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return notes, nil
 }
 
@@ -283,16 +273,15 @@ func (z *notes) BatchRead(ctx context.Context, options *NoteBatchReadOptions) (*
 	u := "/crm/v3/objects/notes/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	notes := &NoteBatchOutput{}
 
 	err = z.client.do(req, notes)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return notes, nil
 }
 
@@ -300,16 +289,15 @@ func (z *notes) BatchUpdate(ctx context.Context, options *NoteBatchUpdateOptions
 	u := "/crm/v3/objects/notes/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	notes := &NoteBatchOutput{}
 
 	err = z.client.do(req, notes)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return notes, nil
 }
 
@@ -317,16 +305,15 @@ func (z *notes) Search(ctx context.Context, options *NoteSearchOptions) (*NoteSe
 	u := "/crm/v3/objects/notes/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	notes := &NoteSearchResults{}
 
 	err = z.client.do(req, notes)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Search(): do(): %+v", err)
+		return nil, err
 	}
-
 	return notes, nil
 }
 
@@ -334,15 +321,14 @@ func (z *notes) Merge(ctx context.Context, options *NoteMergeOptions) (*Note, er
 	u := "/crm/v3/objects/notes/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	note := &Note{}
 
 	err = z.client.do(req, note)
 	if err != nil {
-		return nil, fmt.Errorf("client.notes.Merge(): do(): %+v", err)
+		return nil, err
 	}
-
 	return note, nil
 }

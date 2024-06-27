@@ -104,14 +104,14 @@ func (z *tickets) ListAssociations(ctx context.Context, query *TicketAssociation
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s/associations/%s", ticketId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ta := &TicketAssociations{}
 
 	err = z.client.do(req, ta)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
 
 	return ta, nil
@@ -121,14 +121,14 @@ func (z *tickets) Associate(ctx context.Context, ticketId string, toObjectType s
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s/associations/%s/%s/%s", ticketId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ticket := &Ticket{}
 
 	err = z.client.do(req, ticket)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Associate(): do(): %v", err)
+		return nil, err
 	}
 
 	return ticket, nil
@@ -138,7 +138,7 @@ func (z *tickets) Disassociate(ctx context.Context, ticketId string, toObjectTyp
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s/associations/%s/%s/%s", ticketId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.tickets.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
 
 	return z.client.do(req, nil)
@@ -148,14 +148,14 @@ func (z *tickets) List(ctx context.Context, query *TicketsListQuery) (*TicketLis
 	u := "/crm/v3/objects/tickets"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	tl := &TicketList{}
 
 	err = z.client.do(req, tl)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
 
 	return tl, nil
@@ -165,14 +165,14 @@ func (z *tickets) Create(ctx context.Context, options *TicketCreateOrUpdateOptio
 	u := "/crm/v3/objects/tickets"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.Create(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ticket := &Ticket{}
 
 	err = z.client.do(req, ticket)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Create(): do(): %v", err)
+		return nil, err
 	}
 
 	return ticket, nil
@@ -182,14 +182,14 @@ func (z *tickets) Read(ctx context.Context, ticketId string, query *TicketReadQu
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s", ticketId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ticket := &Ticket{}
 
 	err = z.client.do(req, ticket)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Read(): do(): %v", err)
+		return nil, err
 	}
 
 	return ticket, nil
@@ -199,14 +199,14 @@ func (z *tickets) Update(ctx context.Context, ticketId string, options *TicketCr
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s", ticketId)
 	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ticket := &Ticket{}
 
 	err = z.client.do(req, ticket)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Update(): do(): %v", err)
+		return nil, err
 	}
 
 	return ticket, nil
@@ -216,7 +216,7 @@ func (z *tickets) Archive(ctx context.Context, ticketId string) error {
 	u := fmt.Sprintf("/crm/v3/objects/tickets/%s", ticketId)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.ticket.Update(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
 
 	return z.client.do(req, nil)
@@ -234,7 +234,7 @@ func (z *tickets) BatchArchive(ctx context.Context, ticketIds []string) error {
 
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.ticket.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
 
 	return z.client.do(req, nil)
@@ -244,14 +244,14 @@ func (z *tickets) BatchCreate(ctx context.Context, options *TicketBatchCreateOpt
 	u := "/crm/v3/objects/tickets/batch/create"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	tbr := &TicketBatchOutput{}
 
 	err = z.client.do(req, tbr)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.BatchCreate(): do(): %v", err)
+		return nil, err
 	}
 
 	return tbr, nil
@@ -261,14 +261,14 @@ func (z *tickets) BatchRead(ctx context.Context, options *TicketBatchReadOptions
 	u := "/crm/v3/objects/tickets/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.BatchRead(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	tbr := &TicketBatchOutput{}
 
 	err = z.client.do(req, tbr)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.BatchRead(): do(): %v", err)
+		return nil, err
 	}
 
 	return tbr, nil
@@ -278,14 +278,14 @@ func (z *tickets) BatchUpdate(ctx context.Context, options *TicketBatchUpdateOpt
 	u := "/crm/v3/objects/tickets/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	tbr := &TicketBatchOutput{}
 
 	err = z.client.do(req, tbr)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.BatchUpdate(): do(): %v", err)
+		return nil, err
 	}
 
 	return tbr, nil
@@ -295,14 +295,14 @@ func (z *tickets) Search(ctx context.Context, options *TicketSearchOptions) (*Ti
 	u := "/crm/v3/objects/tickets/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	tsr := &TicketSearchResults{}
 
 	err = z.client.do(req, tsr)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Search(): do(): %v", err)
+		return nil, err
 	}
 
 	return tsr, nil
@@ -312,14 +312,14 @@ func (z *tickets) Merge(ctx context.Context, options *MergeOptions) (*Ticket, er
 	u := "/crm/v3/objects/tickets/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.ticket.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ticket := &Ticket{}
 
 	err = z.client.do(req, ticket)
 	if err != nil {
-		return nil, fmt.Errorf("client.tickets.Merge(): do(): %v", err)
+		return nil, err
 	}
 
 	return ticket, nil

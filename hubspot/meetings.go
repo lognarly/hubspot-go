@@ -140,16 +140,15 @@ func (z *meetings) ListAssociations(ctx context.Context, query *MeetingAssociati
 	u := fmt.Sprintf("/crm/v3/objects/meetings/%s/associations/%s", meetingId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ca := &MeetingAssociations{}
 
 	err = z.client.do(req, ca)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return ca, nil
 }
 
@@ -157,16 +156,15 @@ func (z *meetings) Associate(ctx context.Context, meetingId string, toObjectType
 	u := fmt.Sprintf("/crm/v3/objects/meetings/%s/associations/%s/%s/%s", meetingId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meeting := &Meeting{}
 
 	err = z.client.do(req, meeting)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Associate(): do(): %v", err)
+		return nil, err
 	}
-
 	return meeting, nil
 }
 
@@ -174,9 +172,8 @@ func (z *meetings) Disassociate(ctx context.Context, meetingId string, toObjectT
 	u := fmt.Sprintf("/crm/v3/objects/meetings/%s/associations/%s/%s/%s", meetingId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.meetings.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -184,16 +181,15 @@ func (z *meetings) List(ctx context.Context, query *MeetingListQuery) (*MeetingL
 	u := "/crm/v3/objects/meetings"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ml := &MeetingList{}
 
 	err = z.client.do(req, ml)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return ml, nil
 }
 
@@ -201,16 +197,15 @@ func (z *meetings) Create(ctx context.Context, options *MeetingCreateOrUpdateOpt
 	u := "/crm/v3/objects/meetings"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Create(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meeting := &Meeting{}
 
 	err = z.client.do(req, meeting)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Create(): do(): %v", err)
+		return nil, err
 	}
-
 	return meeting, nil
 }
 
@@ -218,16 +213,15 @@ func (z *meetings) Read(ctx context.Context, query *MeetingReadQuery, meetingId 
 	u := fmt.Sprintf("crm/v3/objects/lineitems/%s", meetingId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meeting := &Meeting{}
 
 	err = z.client.do(req, meeting)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Read(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meeting, nil
 }
 
@@ -235,16 +229,15 @@ func (z *meetings) Update(ctx context.Context, options *MeetingCreateOrUpdateOpt
 	u := fmt.Sprintf("crm/v3/objects/meetings/%s", meetingId)
 	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meeting := &Meeting{}
 
 	err = z.client.do(req, meeting)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Update(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meeting, nil
 }
 
@@ -252,9 +245,8 @@ func (z *meetings) Archive(ctx context.Context, meetingId string) error {
 	u := fmt.Sprintf("crm/v3/objects/meetings/%s", meetingId)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.meetings.Archive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -270,9 +262,8 @@ func (z *meetings) BatchArchive(ctx context.Context, meetingIds []string) error 
 
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.meetings.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -280,16 +271,15 @@ func (z *meetings) BatchCreate(ctx context.Context, options *MeetingBatchCreateO
 	u := "/crm/v3/objects/meetings/batch/create"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meetings := &MeetingBatchOutput{}
 
 	err = z.client.do(req, meetings)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchCreate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meetings, nil
 }
 
@@ -297,16 +287,15 @@ func (z *meetings) BatchRead(ctx context.Context, options *MeetingBatchReadOptio
 	u := "/crm/v3/objects/meetings/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meetings := &MeetingBatchOutput{}
 
 	err = z.client.do(req, meetings)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meetings, nil
 }
 
@@ -314,16 +303,15 @@ func (z *meetings) BatchUpdate(ctx context.Context, options *MeetingBatchUpdateO
 	u := "/crm/v3/objects/meetings/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meetings := &MeetingBatchOutput{}
 
 	err = z.client.do(req, meetings)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meetings, nil
 }
 
@@ -331,16 +319,15 @@ func (z *meetings) Search(ctx context.Context, options *MeetingSearchOptions) (*
 	u := "/crm/v3/objects/meetings/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meetings := &MeetingSearchResults{}
 
 	err = z.client.do(req, meetings)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Search(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meetings, nil
 }
 
@@ -348,15 +335,14 @@ func (z *meetings) Merge(ctx context.Context, options *MeetingMergeOptions) (*Me
 	u := "/crm/v3/objects/meetings/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	meeting := &Meeting{}
 
 	err = z.client.do(req, meeting)
 	if err != nil {
-		return nil, fmt.Errorf("client.meetings.Merge(): do(): %+v", err)
+		return nil, err
 	}
-
 	return meeting, nil
 }

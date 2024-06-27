@@ -92,16 +92,15 @@ func (z *feedbackSubmissions) ListAssociations(ctx context.Context, feedbackSubm
 	u := fmt.Sprintf("/crm/v3/objects/feedback_submissions/%s/associations/%s", feedbackSubmissionId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	fsa := &FeedbackSubmissionAssociations{}
 
 	err = z.client.do(req, fsa)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return fsa, nil
 }
 
@@ -109,16 +108,15 @@ func (z *feedbackSubmissions) List(ctx context.Context, query *FeedbackSubmissio
 	u := "/crm/v3/objects/feedback_submissions"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	fsl := &FeedbackSubmissionList{}
 
 	err = z.client.do(req, fsl)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return fsl, nil
 }
 
@@ -126,16 +124,15 @@ func (z *feedbackSubmissions) Read(ctx context.Context, feedbackSubmissionId str
 	u := fmt.Sprintf("/crm/v3/objects/feedback_submissions/%s", feedbackSubmissionId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	fs := &FeedbackSubmission{}
 
 	err = z.client.do(req, fs)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.Read(): do(): %v", err)
+		return nil, err
 	}
-
 	return fs, nil
 }
 
@@ -143,16 +140,15 @@ func (z *feedbackSubmissions) BatchRead(ctx context.Context, options *FeedbackSu
 	u := "/crm/v3/objects/feedback_submissions/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.BatchRead(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	fsbrr := &FeedbackSubmissionBatchReadResults{}
 
 	err = z.client.do(req, fsbrr)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.BatchRead(): do(): %v", err)
+		return nil, err
 	}
-
 	return fsbrr, nil
 }
 
@@ -160,15 +156,14 @@ func (z *feedbackSubmissions) Search(ctx context.Context, options *FeedbackSubmi
 	u := "/crm/v3/objects/feedback_submissions/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	fsso := &FeedbackSubmissionSearchResults{}
 
 	err = z.client.do(req, fsso)
 	if err != nil {
-		return nil, fmt.Errorf("client.feedbackSubmissions.Search(): do(): %v", err)
+		return nil, err
 	}
-
 	return fsso, nil
 }

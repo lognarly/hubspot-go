@@ -53,14 +53,14 @@ func (z *owners) List(ctx context.Context, query *OwnerListQuery) (*OwnerList, e
 	u := "/crm/v3/owners"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.owners.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ol := &OwnerList{}
 
 	err = z.client.do(req, ol)
 	if err != nil {
-		return nil, fmt.Errorf("client.owners.List(): do(): %v", err)
+		return nil, err
 	}
 
 	return ol, nil
@@ -70,14 +70,14 @@ func (z *owners) Read(ctx context.Context, ownerId string, query *OwnerReadQuery
 	u := fmt.Sprintf("/crm/v3/owners/%s", ownerId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.owners.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	owner := &Owner{}
 
 	err = z.client.do(req, owner)
 	if err != nil {
-		return nil, fmt.Errorf("client.owners.Read(): do(): %v", err)
+		return nil, err
 	}
 
 	return owner, nil

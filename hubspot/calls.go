@@ -146,7 +146,6 @@ func (z *calls) ListAssociations(ctx context.Context, query *CallAssociationsQue
 	if err != nil {
 		return nil, err
 	}
-
 	return ca, nil
 }
 
@@ -163,7 +162,6 @@ func (z *calls) Associate(ctx context.Context, callId string, toObjectType strin
 	if err != nil {
 		return nil, err
 	}
-
 	return call, nil
 }
 
@@ -173,7 +171,6 @@ func (z *calls) Disassociate(ctx context.Context, callId string, toObjectType st
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -190,7 +187,6 @@ func (z *calls) List(ctx context.Context, query *CallListQuery) (*CallList, erro
 	if err != nil {
 		return nil, err
 	}
-
 	return cl, nil
 }
 
@@ -207,7 +203,6 @@ func (z *calls) Create(ctx context.Context, options *CallCreateOrUpdateOptions) 
 	if err != nil {
 		return nil, err
 	}
-
 	return call, nil
 }
 
@@ -224,7 +219,6 @@ func (z *calls) Read(ctx context.Context, query *CallReadQuery, callId string) (
 	if err != nil {
 		return nil, err
 	}
-
 	return call, nil
 }
 
@@ -241,7 +235,6 @@ func (z *calls) Update(ctx context.Context, options *CallCreateOrUpdateOptions, 
 	if err != nil {
 		return nil, err
 	}
-
 	return call, nil
 }
 
@@ -251,7 +244,6 @@ func (z *calls) Archive(ctx context.Context, callId string) error {
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -268,7 +260,6 @@ func (z *calls) BatchArchive(ctx context.Context, callIds []string) error {
 	if err != nil {
 		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -285,7 +276,6 @@ func (z *calls) BatchCreate(ctx context.Context, options *CallBatchCreateOptions
 	if err != nil {
 		return nil, err
 	}
-
 	return calls, nil
 }
 
@@ -302,7 +292,6 @@ func (z *calls) BatchRead(ctx context.Context, options *CallBatchReadOptions) (*
 	if err != nil {
 		return nil, err
 	}
-
 	return calls, nil
 }
 
@@ -351,6 +340,5 @@ func (z *calls) Merge(ctx context.Context, options *CallMergeOptions) (*Call, er
 	if err != nil {
 		return nil, err
 	}
-
 	return call, nil
 }

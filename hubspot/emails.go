@@ -144,16 +144,15 @@ func (z *emails) ListAssociations(ctx context.Context, query *EmailAssociationsQ
 	u := fmt.Sprintf("/crm/v3/objects/emails/%s/associations/%s", emailId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	ca := &EmailAssociations{}
 
 	err = z.client.do(req, ca)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return ca, nil
 }
 
@@ -161,16 +160,15 @@ func (z *emails) Associate(ctx context.Context, emailId string, toObjectType str
 	u := fmt.Sprintf("/crm/v3/objects/emails/%s/associations/%s/%s/%s", emailId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	email := &Email{}
 
 	err = z.client.do(req, email)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Associate(): do(): %v", err)
+		return nil, err
 	}
-
 	return email, nil
 }
 
@@ -178,9 +176,8 @@ func (z *emails) Disassociate(ctx context.Context, emailId string, toObjectType 
 	u := fmt.Sprintf("/crm/v3/objects/emails/%s/associations/%s/%s/%s", emailId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.emails.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -188,16 +185,15 @@ func (z *emails) List(ctx context.Context, query *EmailListQuery) (*EmailList, e
 	u := "/crm/v3/objects/emails"
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	el := &EmailList{}
 
 	err = z.client.do(req, el)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return el, nil
 }
 
@@ -205,16 +201,15 @@ func (z *emails) Create(ctx context.Context, options *EmailCreateOrUpdateOptions
 	u := "/crm/v3/objects/emails"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Create(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	email := &Email{}
 
 	err = z.client.do(req, email)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Create(): do(): %v", err)
+		return nil, err
 	}
-
 	return email, nil
 }
 
@@ -222,16 +217,15 @@ func (z *emails) Read(ctx context.Context, query *EmailReadQuery, emailId string
 	u := fmt.Sprintf("crm/v3/objects/lineitems/%s", emailId)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	email := &Email{}
 
 	err = z.client.do(req, email)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Read(): do(): %+v", err)
+		return nil, err
 	}
-
 	return email, nil
 }
 
@@ -239,16 +233,15 @@ func (z *emails) Update(ctx context.Context, options *EmailCreateOrUpdateOptions
 	u := fmt.Sprintf("crm/v3/objects/emails/%s", emailId)
 	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	email := &Email{}
 
 	err = z.client.do(req, email)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Update(): do(): %+v", err)
+		return nil, err
 	}
-
 	return email, nil
 }
 
@@ -256,9 +249,8 @@ func (z *emails) Archive(ctx context.Context, emailId string) error {
 	u := fmt.Sprintf("crm/v3/objects/emails/%s", emailId)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.emails.Archive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -274,9 +266,8 @@ func (z *emails) BatchArchive(ctx context.Context, emailIds []string) error {
 
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.emails.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
@@ -284,16 +275,15 @@ func (z *emails) BatchCreate(ctx context.Context, options *EmailBatchCreateOptio
 	u := "/crm/v3/objects/emails/batch/create"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	emails := &EmailBatchOutput{}
 
 	err = z.client.do(req, emails)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchCreate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return emails, nil
 }
 
@@ -301,16 +291,15 @@ func (z *emails) BatchRead(ctx context.Context, options *EmailBatchReadOptions) 
 	u := "/crm/v3/objects/emails/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	emails := &EmailBatchOutput{}
 
 	err = z.client.do(req, emails)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return emails, nil
 }
 
@@ -318,16 +307,15 @@ func (z *emails) BatchUpdate(ctx context.Context, options *EmailBatchUpdateOptio
 	u := "/crm/v3/objects/emails/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	emails := &EmailBatchOutput{}
 
 	err = z.client.do(req, emails)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return emails, nil
 }
 
@@ -335,16 +323,15 @@ func (z *emails) Search(ctx context.Context, options *EmailSearchOptions) (*Emai
 	u := "/crm/v3/objects/emails/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	emails := &EmailSearchResults{}
 
 	err = z.client.do(req, emails)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Search(): do(): %+v", err)
+		return nil, err
 	}
-
 	return emails, nil
 }
 
@@ -352,15 +339,14 @@ func (z *emails) Merge(ctx context.Context, options *EmailMergeOptions) (*Email,
 	u := "/crm/v3/objects/emails/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	email := &Email{}
 
 	err = z.client.do(req, email)
 	if err != nil {
-		return nil, fmt.Errorf("client.emails.Merge(): do(): %+v", err)
+		return nil, err
 	}
-
 	return email, nil
 }

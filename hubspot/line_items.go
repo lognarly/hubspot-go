@@ -109,16 +109,15 @@ func (z *lineItems) ListAssociations(ctx context.Context, query *LineItemAssocia
 	u := fmt.Sprintf("/crm/v3/objects/line_items/%s/associations/%s", lineItemId, toObjectType)
 	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.ListAssociations(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	la := &LineItemAssociations{}
 
 	err = z.client.do(req, la)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.ListAssociations(): do(): %v", err)
+		return nil, err
 	}
-
 	return la, nil
 }
 
@@ -126,16 +125,15 @@ func (z *lineItems) Associate(ctx context.Context, lineItemId string, toObjectTy
 	u := fmt.Sprintf("/crm/v3/objects/line_items/%s/associations/%s/%s/%s", lineItemId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "PUT", u, nil)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Associate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	lineItem := &LineItem{}
 
 	err = z.client.do(req, lineItem)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Associate(): do(): %v", err)
+		return nil, err
 	}
-
 	return lineItem, nil
 }
 
@@ -143,91 +141,85 @@ func (z *lineItems) Disassociate(ctx context.Context, lineItemId string, toObjec
 	u := fmt.Sprintf("/crm/v3/objects/lineItems/%s/associations/%s/%s/%s", lineItemId, toObjectType, toObjectId, associationType)
 	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.lineItems.Disassociate(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
 	return z.client.do(req, nil)
 }
 
-func (l *lineItems) List(ctx context.Context, query *LineItemListQuery) (*LineItemList, error) {
+func (z *lineItems) List(ctx context.Context, query *LineItemListQuery) (*LineItemList, error) {
 	u := "crm/v3/objects/line_items"
-	req, err := l.client.newHttpRequest(ctx, "GET", u, query)
+	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.List(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	pl := &LineItemList{}
 
-	err = l.client.do(req, pl)
+	err = z.client.do(req, pl)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.List(): do(): %v", err)
+		return nil, err
 	}
-
 	return pl, nil
 }
 
-func (l *lineItems) Create(ctx context.Context, options *LineItemCreateOrUpdateOptions) (*LineItem, error) {
+func (z *lineItems) Create(ctx context.Context, options *LineItemCreateOrUpdateOptions) (*LineItem, error) {
 	u := "/crm/v3/objects/line_items"
-	req, err := l.client.newHttpRequest(ctx, "POST", u, options)
+	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Create(): newHttpRequest(ctx, ): %+v", err)
+		return nil, err
 	}
 
-	lineItem := &LineItem{}
+	li := &LineItem{}
 
-	err = l.client.do(req, lineItem)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Create(): do(): %+v", err)
+		return nil, err
 	}
-
-	return lineItem, nil
+	return li, nil
 }
 
-func (l *lineItems) Read(ctx context.Context, query *LineItemReadQuery, lineItemId string) (*LineItem, error) {
+func (z *lineItems) Read(ctx context.Context, query *LineItemReadQuery, lineItemId string) (*LineItem, error) {
 	u := fmt.Sprintf("crm/v3/objects/line_items/%s", lineItemId)
-	req, err := l.client.newHttpRequest(ctx, "GET", u, query)
+	req, err := z.client.newHttpRequest(ctx, "GET", u, query)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Read(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
-	lineItem := &LineItem{}
+	li := &LineItem{}
 
-	err = l.client.do(req, lineItem)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Read(): do(): %+v", err)
+		return nil, err
 	}
-
-	return lineItem, nil
+	return li, nil
 }
 
-func (l *lineItems) Update(ctx context.Context, lineItemId string, options *LineItemCreateOrUpdateOptions) (*LineItem, error) {
+func (z *lineItems) Update(ctx context.Context, lineItemId string, options *LineItemCreateOrUpdateOptions) (*LineItem, error) {
 	u := fmt.Sprintf("crm/v3/objects/line_items/%s", lineItemId)
-	req, err := l.client.newHttpRequest(ctx, "PATCH", u, options)
+	req, err := z.client.newHttpRequest(ctx, "PATCH", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItem.Update(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
-	lineItem := &LineItem{}
+	li := &LineItem{}
 
-	err = l.client.do(req, lineItem)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItem.Update(): do(): %+v", err)
+		return nil, err
 	}
-
-	return lineItem, nil
+	return li, nil
 }
 
-func (l *lineItems) Archive(ctx context.Context, lineItemId string) error {
+func (z *lineItems) Archive(ctx context.Context, lineItemId string) error {
 	u := fmt.Sprintf("crm/v3/objects/line_items/%s", lineItemId)
-	req, err := l.client.newHttpRequest(ctx, "DELETE", u, nil)
+	req, err := z.client.newHttpRequest(ctx, "DELETE", u, nil)
 	if err != nil {
-		return fmt.Errorf("client.lineItems.Archive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
-	return l.client.do(req, nil)
+	return z.client.do(req, nil)
 }
 
-func (l *lineItems) BatchArchive(ctx context.Context, lineItemIds []string) error {
+func (z *lineItems) BatchArchive(ctx context.Context, lineItemIds []string) error {
 	u := "/crm/v3/objects/line_items/batch/archive"
 
 	options := BatchInputOptions{}
@@ -237,28 +229,26 @@ func (l *lineItems) BatchArchive(ctx context.Context, lineItemIds []string) erro
 		options.Inputs = append(options.Inputs, BatchInput{Id: lineItemId})
 	}
 
-	req, err := l.client.newHttpRequest(ctx, "POST", u, options)
+	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return fmt.Errorf("client.lineItems.BatchArchive(): newHttpRequest(ctx, ): %v", err)
+		return err
 	}
-
-	return l.client.do(req, nil)
+	return z.client.do(req, nil)
 }
 
-func (l *lineItems) BatchCreate(ctx context.Context, options *LineItemBatchCreateOptions) (*LineItemBatchOutput, error) {
+func (z *lineItems) BatchCreate(ctx context.Context, options *LineItemBatchCreateOptions) (*LineItemBatchOutput, error) {
 	u := "/crm/v3/objects/line_items/batch/create"
-	req, err := l.client.newHttpRequest(ctx, "POST", u, options)
+	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.BatchCreate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	lineItems := &LineItemBatchOutput{}
 
-	err = l.client.do(req, lineItems)
+	err = z.client.do(req, lineItems)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItem.BatchCreate(): do(): %+v", err)
+		return nil, err
 	}
-
 	return lineItems, nil
 }
 
@@ -266,16 +256,15 @@ func (z *lineItems) BatchRead(ctx context.Context, options *LineItemBatchReadOpt
 	u := "/crm/v3/objects/line_items/batch/read"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.BatchRead(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
 	lbrr := &LineItemBatchOutput{}
 
 	err = z.client.do(req, lbrr)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.BatchRead(): do(): %+v", err)
+		return nil, err
 	}
-
 	return lbrr, nil
 }
 
@@ -283,49 +272,46 @@ func (z *lineItems) BatchUpdate(ctx context.Context, options *LineItemBatchUpdat
 	u := "/crm/v3/objects/line_items/batch/update"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.BatchUpdate(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
-	lineItems := &LineItemBatchOutput{}
+	li := &LineItemBatchOutput{}
 
-	err = z.client.do(req, lineItems)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.BatchUpdate(): do(): %+v", err)
+		return nil, err
 	}
-
-	return lineItems, nil
+	return li, nil
 }
 
 func (z *lineItems) Search(ctx context.Context, options *LineItemSearchOptions) (*LineItemSearchResults, error) {
 	u := "/crm/v3/objects/line_items/search"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Search(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
-	lineItems := &LineItemSearchResults{}
+	li := &LineItemSearchResults{}
 
-	err = z.client.do(req, lineItems)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Search(): do(): %+v", err)
+		return nil, err
 	}
-
-	return lineItems, nil
+	return li, nil
 }
 
 func (z *lineItems) Merge(ctx context.Context, options *LineItemMergeOptions) (*LineItem, error) {
 	u := "/crm/v3/objects/line_items/merge"
 	req, err := z.client.newHttpRequest(ctx, "POST", u, options)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Merge(): newHttpRequest(ctx, ): %v", err)
+		return nil, err
 	}
 
-	company := &LineItem{}
+	li := &LineItem{}
 
-	err = z.client.do(req, company)
+	err = z.client.do(req, li)
 	if err != nil {
-		return nil, fmt.Errorf("client.lineItems.Merge(): do(): %+v", err)
+		return nil, err
 	}
-
-	return company, nil
+	return li, nil
 }
