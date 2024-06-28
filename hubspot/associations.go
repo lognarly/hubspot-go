@@ -42,6 +42,7 @@ const (
 	UserDefined       HubspotAssociationCategory = "USER_DEFINED"
 	IntegratorDefined HubspotAssociationCategory = "INTEGRATOR_DEFINED"
 
+	DealToContactTypeId HubspotAssociationTypeId = 3
 	LineItemToDealTypeId HubspotAssociationTypeId = 20
 )
 
