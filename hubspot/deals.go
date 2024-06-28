@@ -58,7 +58,8 @@ type Deal struct {
 }
 
 type DealCreateOrUpdateOptions struct {
-	Properties DealProperties `json:"properties"`
+	Properties   DealProperties `json:"properties"`
+	Associations []Association  `json:"associations,omitempty"`
 }
 
 type DealReadQuery struct {
