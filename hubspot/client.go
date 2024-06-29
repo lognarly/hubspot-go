@@ -48,20 +48,20 @@ type Client struct {
 }
 
 // Used to create a new HubSpot Client
-func NewHubSpotClient(token string) (*Client, error) {
+func NewHubspotClient(token string) (*Client, error) {
 	if token == "" {
 		return nil, fmt.Errorf(ErrMissingToken)
 	}
-	return newHubSpotClientWithDefaults(token), nil
+	return newHubspotClientWithDefaults(token), nil
 }
 
 // Creates a new HubSpot Client, but allows for passing in a custom HTTP client.
 // This can be used for passing contexts throughout SDK usage for additional customization.
-func NewHubSpotClientFromHttpClient(token string, httpClient *http.Client) (*Client, error) {
+func NewHubspotClientFromHttpClient(token string, httpClient *http.Client) (*Client, error) {
 	if token == "" {
 		return nil, fmt.Errorf(ErrMissingToken)
 	}
-	client := newHubSpotClientWithDefaults(token)
+	client := newHubspotClientWithDefaults(token)
 	if httpClient != nil {
 		client.http = httpClient
 	}
@@ -69,7 +69,7 @@ func NewHubSpotClientFromHttpClient(token string, httpClient *http.Client) (*Cli
 }
 
 // Creates a new HubSpot client with defaults
-func newHubSpotClientWithDefaults(token string) *Client {
+func newHubspotClientWithDefaults(token string) *Client {
 	client := &Client{
 		baseURL: DefaultAddress,
 		token:   token,
