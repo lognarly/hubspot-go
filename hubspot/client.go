@@ -47,7 +47,7 @@ type Client struct {
 	Quotes              Quotes
 }
 
-// Used to create a new HubSpot Client
+// NewHubspotClient Used to create a new HubSpot Client
 func NewHubspotClient(token string) (*Client, error) {
 	if token == "" {
 		return nil, fmt.Errorf(ErrMissingToken)
@@ -55,7 +55,7 @@ func NewHubspotClient(token string) (*Client, error) {
 	return newHubspotClientWithDefaults(token), nil
 }
 
-// Creates a new HubSpot Client, but allows for passing in a custom HTTP client.
+// NewHubspotClientFromHttpClient Creates a new HubSpot Client, but allows for passing in a custom HTTP client.
 // This can be used for passing contexts throughout SDK usage for additional customization.
 func NewHubspotClientFromHttpClient(token string, httpClient *http.Client) (*Client, error) {
 	if token == "" {
@@ -141,6 +141,7 @@ func (c *Client) newHttpRequest(ctx context.Context, method string, endpoint str
 }
 
 func (c *Client) do(req *http.Request, v interface{}) error {
+	apiErr := &HubspotErrorResponse{}
 	res, err := c.http.Do(req)
 	if err != nil {
 		return err
@@ -148,13 +149,15 @@ func (c *Client) do(req *http.Request, v interface{}) error {
 	defer res.Body.Close()
 
 	statusOk := res.StatusCode >= 200 && res.StatusCode < 300
-
 	if !statusOk {
 		resBody, err := io.ReadAll(res.Body)
 		if err != nil {
 			return err
 		}
-		return fmt.Errorf("error: %s", string(resBody))
+		if err = json.Unmarshal(resBody, apiErr); err != nil {
+			return err
+		}
+		return apiErr
 	}
 
 	resBody, err := io.ReadAll(res.Body)
