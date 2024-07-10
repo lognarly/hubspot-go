@@ -31,3 +31,12 @@ func (e *HubspotErrorResponse) Error() string {
 	}
 	return string(j)
 }
+
+func GetErrorResponseFromError(respErr error) (*HubspotErrorResponse, error) {
+	errResponse := &HubspotErrorResponse{}
+	err := json.Unmarshal([]byte(respErr.Error()), &errResponse)
+	if err != nil {
+		return nil, fmt.Errorf("failed to unmarshal HubspotErrorResponse: %v, original error: %v", err, respErr)
+	}
+	return errResponse, nil
+}
