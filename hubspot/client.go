@@ -153,7 +153,8 @@ func (c *Client) do(req *http.Request, v interface{}) error {
 		if err != nil {
 			return err
 		}
-		return fmt.Errorf(string(resBody))
+		errMsg := fmt.Sprintf("%d: %s", res.StatusCode, string(resBody))
+		return fmt.Errorf(errMsg)
 	}
 
 	resBody, err := io.ReadAll(res.Body)
