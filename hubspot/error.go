@@ -5,18 +5,18 @@ import (
 	"fmt"
 )
 
-type HubspotErrorResponse struct {
+type ErrorResponse struct {
 	SubCategory   string                 `json:"subCategory,omitempty"`
 	Context       map[string]interface{} `json:"context,omitempty"`
 	CorrelationId string                 `json:"correlationId,omitempty"`
 	Links         map[string]string      `json:"links,omitempty"`
 	Message       string                 `json:"message,omitempty"`
 	Category      string                 `json:"category,omitempty"`
-	Errors        []HubspotError         `json:"errors,omitempty"`
+	Errors        []ErrorObject          `json:"errors,omitempty"`
 	Status        string                 `json:"status,omitempty"`
 }
 
-type HubspotError struct {
+type ErrorObject struct {
 	SubCategory string                 `json:"subCategory,omitempty"`
 	Code        string                 `json:"code,omitempty"`
 	In          string                 `json:"in,omitempty"`
@@ -24,19 +24,19 @@ type HubspotError struct {
 	Message     string                 `json:"message,omitempty"`
 }
 
-func (e *HubspotErrorResponse) Error() string {
+func (e *ErrorResponse) Error() string {
 	j, err := json.Marshal(e)
 	if err != nil {
-		return fmt.Sprintf("failed to marshal HubspotErrorResponse: %v", err)
+		return fmt.Sprintf("failed to marshal ErrorResponse: %v", err)
 	}
 	return string(j)
 }
 
-func GetErrorResponseFromError(respErr error) (*HubspotErrorResponse, error) {
-	errResponse := &HubspotErrorResponse{}
+func GetErrorResponseFromError(respErr error) (*ErrorResponse, error) {
+	errResponse := &ErrorResponse{}
 	err := json.Unmarshal([]byte(respErr.Error()), &errResponse)
 	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal HubspotErrorResponse: %v, original error: %v", err, respErr)
+		return nil, fmt.Errorf("failed to unmarshal ErrorResponse: %v, original error: %v", err, respErr)
 	}
 	return errResponse, nil
 }

@@ -141,7 +141,7 @@ func (c *Client) newHttpRequest(ctx context.Context, method string, endpoint str
 }
 
 func (c *Client) do(req *http.Request, v interface{}) error {
-	apiErr := &HubspotErrorResponse{}
+	apiErr := &ErrorResponse{}
 	res, err := c.http.Do(req)
 	if err != nil {
 		return err
