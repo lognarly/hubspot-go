@@ -141,7 +141,6 @@ func (c *Client) newHttpRequest(ctx context.Context, method string, endpoint str
 }
 
 func (c *Client) do(req *http.Request, v interface{}) error {
-	apiErr := &ErrorResponse{}
 	res, err := c.http.Do(req)
 	if err != nil {
 		return err
@@ -154,10 +153,7 @@ func (c *Client) do(req *http.Request, v interface{}) error {
 		if err != nil {
 			return err
 		}
-		if err = json.Unmarshal(resBody, apiErr); err != nil {
-			return err
-		}
-		return apiErr
+		return fmt.Errorf(string(resBody))
 	}
 
 	resBody, err := io.ReadAll(res.Body)
